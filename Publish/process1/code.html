@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RentGen - Contract Information Entry</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-step {
+            background-color: #137fec15;
+            border-left: 4px solid #137fec;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111418] dark:text-white min-h-screen">
+<div class="flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="w-72 bg-white dark:bg-[#1a242f] border-r border-[#dbe0e6] dark:border-[#2d3947] flex flex-col justify-between p-6">
+<div class="flex flex-col gap-8">
+<div class="flex flex-col">
+<div class="flex items-center gap-2 mb-1">
+<div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">description</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight">RentGen</h1>
+</div>
+<p class="text-[#617589] dark:text-[#a0aec0] text-xs font-medium uppercase tracking-wider">Contract Builder</p>
+</div>
+<nav class="flex flex-col gap-1">
+<div class="flex items-center gap-3 px-3 py-3 rounded-lg active-step">
+<span class="material-symbols-outlined text-primary">description</span>
+<p class="text-primary text-sm font-semibold">Contract Info</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-[#617589] group-hover:text-primary">person</span>
+<p class="text-[#111418] dark:text-gray-300 text-sm font-medium">Landlord Details</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-[#617589] group-hover:text-primary">group</span>
+<p class="text-[#111418] dark:text-gray-300 text-sm font-medium">Tenant Details</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-[#617589] group-hover:text-primary">credit_card</span>
+<p class="text-[#111418] dark:text-gray-300 text-sm font-medium">Payment Terms</p>
+</div>
+</nav>
+</div>
+<div class="flex flex-col gap-1 border-t border-[#dbe0e6] dark:border-[#2d3947] pt-6">
+<div class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg cursor-pointer">
+<span class="material-symbols-outlined text-[#617589]">help</span>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-medium">Support</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg cursor-pointer">
+<span class="material-symbols-outlined text-[#617589]">settings</span>
+<p class="text-[#617589] dark:text-gray-400 text-sm font-medium">Settings</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto">
+<div class="max-w-[1000px] mx-auto px-8 py-10">
+<!-- PageHeading -->
+<div class="mb-10">
+<p class="text-primary font-semibold text-sm mb-2 uppercase tracking-widest">Step 1 of 4</p>
+<h1 class="text-[#111418] dark:text-white text-4xl font-black leading-tight tracking-tight mb-3">Rent Contract Information Entry</h1>
+<p class="text-[#617589] dark:text-[#a0aec0] text-lg max-w-2xl">Fill in the primary details of the lease agreement. These details will be used to generate your legally binding document.</p>
+</div>
+<!-- Form Section -->
+<div class="bg-white dark:bg-[#1a242f] rounded-xl border border-[#dbe0e6] dark:border-[#2d3947] shadow-sm overflow-hidden">
+<div class="p-8 space-y-8">
+<!-- SectionHeader -->
+<div>
+<h2 class="text-[#111418] dark:text-white text-xl font-bold tracking-tight mb-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">home</span>
+                                Property &amp; Basic Terms
+                            </h2>
+<p class="text-[#617589] dark:text-[#a0aec0] text-sm">Enter the physical location and financial baseline of the contract.</p>
+</div>
+<div class="grid grid-cols-1 gap-6">
+<!-- TextField (Full Width) -->
+<div class="flex flex-col gap-2">
+<label class="flex flex-col">
+<p class="text-[#111418] dark:text-gray-200 text-sm font-semibold pb-1.5">Property Address</p>
+<input class="form-input flex w-full rounded-lg text-[#111418] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#dbe0e6] dark:border-[#2d3947] bg-white dark:bg-[#101922] focus:border-primary h-14 placeholder:text-[#617589] p-4 text-base font-normal leading-normal transition-all" placeholder="123 Modern Ave, Suite 400, San Francisco, CA 94103"/>
+</label>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- TextField (Currency) -->
+<label class="flex flex-col">
+<p class="text-[#111418] dark:text-gray-200 text-sm font-semibold pb-1.5">Deposit Amount ($)</p>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-[#617589]">$</span>
+<input class="form-input flex w-full pl-8 rounded-lg text-[#111418] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#dbe0e6] dark:border-[#2d3947] bg-white dark:bg-[#101922] focus:border-primary h-14 placeholder:text-[#617589] p-4 text-base font-normal leading-normal transition-all" placeholder="0.00"/>
+</div>
+</label>
+<!-- TextField (Currency) -->
+<label class="flex flex-col">
+<p class="text-[#111418] dark:text-gray-200 text-sm font-semibold pb-1.5">Monthly Rent ($)</p>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-[#617589]">$</span>
+<input class="form-input flex w-full pl-8 rounded-lg text-[#111418] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#dbe0e6] dark:border-[#2d3947] bg-white dark:bg-[#101922] focus:border-primary h-14 placeholder:text-[#617589] p-4 text-base font-normal leading-normal transition-all" placeholder="0.00"/>
+</div>
+</label>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Custom field: Contract Duration -->
+<label class="flex flex-col">
+<p class="text-[#111418] dark:text-gray-200 text-sm font-semibold pb-1.5">Contract Duration (Months)</p>
+<select class="form-select flex w-full rounded-lg text-[#111418] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#dbe0e6] dark:border-[#2d3947] bg-white dark:bg-[#101922] focus:border-primary h-14 p-4 text-base font-normal leading-normal transition-all appearance-none">
+<option>6 Months</option>
+<option selected="">12 Months</option>
+<option>24 Months</option>
+<option>Custom Range</option>
+</select>
+</label>
+<!-- Custom field: Maintenance Fees -->
+<label class="flex flex-col">
+<p class="text-[#111418] dark:text-gray-200 text-sm font-semibold pb-1.5">Maintenance Fees ($)</p>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-[#617589]">$</span>
+<input class="form-input flex w-full pl-8 rounded-lg text-[#111418] dark:text-white focus:outline-0 focus:ring-2 focus:ring-primary/20 border border-[#dbe0e6] dark:border-[#2d3947] bg-white dark:bg-[#101922] focus:border-primary h-14 placeholder:text-[#617589] p-4 text-base font-normal leading-normal transition-all" placeholder="0.00"/>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<input checked="" class="rounded border-[#dbe0e6] text-primary focus:ring-primary" id="included" type="checkbox"/>
+<label class="text-xs text-[#617589] dark:text-[#a0aec0]" for="included">Included in monthly rent</label>
+</div>
+</label>
+</div>
+</div>
+<!-- Info Alert -->
+<div class="bg-primary/5 border border-primary/20 p-4 rounded-lg flex gap-3">
+<span class="material-symbols-outlined text-primary">info</span>
+<p class="text-sm text-[#111418] dark:text-gray-300 leading-relaxed">
+<span class="font-bold">Pro-tip:</span> Most standard contracts require a deposit equal to one month's rent. Ensure this matches your local jurisdictional laws.
+                            </p>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="bg-gray-50 dark:bg-[#141d27] border-t border-[#dbe0e6] dark:border-[#2d3947] px-8 py-6 flex justify-between items-center">
+<button class="text-[#617589] dark:text-gray-400 font-semibold text-sm hover:text-[#111418] dark:hover:text-white transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">save</span>
+                            Save Draft
+                        </button>
+<button class="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-lg font-bold text-sm flex items-center gap-2 transition-all shadow-md shadow-primary/20">
+                            Next: Landlord Details
+                            <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Preview Summary (Secondary info) -->
+<div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="p-4 bg-white dark:bg-[#1a242f] border border-[#dbe0e6] dark:border-[#2d3947] rounded-lg">
+<p class="text-[#617589] text-xs font-medium uppercase mb-1">Total Term Commitment</p>
+<p class="text-[#111418] dark:text-white font-bold">$0.00</p>
+</div>
+<div class="p-4 bg-white dark:bg-[#1a242f] border border-[#dbe0e6] dark:border-[#2d3947] rounded-lg">
+<p class="text-[#617589] text-xs font-medium uppercase mb-1">Contract Status</p>
+<p class="text-[#111418] dark:text-white font-bold flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-yellow-400"></span> In Progress
+                        </p>
+</div>
+<div class="p-4 bg-white dark:bg-[#1a242f] border border-[#dbe0e6] dark:border-[#2d3947] rounded-lg">
+<p class="text-[#617589] text-xs font-medium uppercase mb-1">Legal Review</p>
+<p class="text-[#111418] dark:text-white font-bold">Standard Templates</p>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

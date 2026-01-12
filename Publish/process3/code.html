@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Automated PDF Contract Preview</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#137fec",
+              "background-light": "#f6f7f8",
+              "background-dark": "#101922",
+            },
+            fontFamily: {
+              "display": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-display transition-colors duration-300">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-gray-800 bg-white dark:bg-background-dark px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-6">
+<span class="material-symbols-outlined text-3xl">gavel</span>
+</div>
+<h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Legal-Safe Engine</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9">
+<a class="text-[#111418] dark:text-gray-300 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-[#111418] dark:text-gray-300 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Contracts</a>
+<a class="text-primary text-sm font-bold leading-normal border-b-2 border-primary" href="#">Preview</a>
+<a class="text-[#111418] dark:text-gray-300 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Settings</a>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-gray-200" data-alt="User profile avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuACXHWT4P4JI5p5Kd2gBR9ndGuCk-VXX5pgYR8lIjdfO1kYbFdkAd4NYzFNnYtb5zYy_TJDwvG0sOobXmamrjKn_sDc4oxHwX2QrbYWHYUJ_feR19rydMrC8NirpNIMH8bbkHrO36oNOZOwki-NnZeP86rwmmZbFTS9Ou3AFpqL8W7R1Elcvy_-43i42w6U-qFe9ZrJZ9UHJsIpMDNP_0B3zW_L2oMC9X4KlQVGuviz_e0AuQWSf_HGHLxoKC9wjugbzKyJ0hOAc7Q");'></div>
+</div>
+</header>
+<main class="flex-1 flex flex-col max-w-[1440px] mx-auto w-full px-6 lg:px-10 py-6 gap-6">
+<!-- Breadcrumbs & Heading -->
+<div class="flex flex-col gap-4">
+<div class="flex flex-wrap items-center gap-2">
+<a class="text-gray-500 dark:text-gray-400 text-sm font-medium hover:text-primary" href="#">Home</a>
+<span class="material-symbols-outlined text-gray-400 text-sm">chevron_right</span>
+<a class="text-gray-500 dark:text-gray-400 text-sm font-medium hover:text-primary" href="#">Rent Contracts</a>
+<span class="material-symbols-outlined text-gray-400 text-sm">chevron_right</span>
+<span class="text-[#111418] dark:text-white text-sm font-semibold">Preview &amp; Review</span>
+</div>
+<div class="flex flex-wrap justify-between items-end gap-4">
+<div class="flex flex-col gap-1">
+<h1 class="text-[#111418] dark:text-white text-3xl font-black leading-tight tracking-tight">Review Your Contract</h1>
+<p class="text-gray-500 dark:text-gray-400 text-base font-normal">Generated document for 1242 Maplewood Avenue, Unit 4B.</p>
+</div>
+<div class="flex gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                        Verified Draft
+                    </span>
+<div class="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-xs font-bold">
+<span class="material-symbols-outlined text-sm">lock</span>
+                        SSL ENCRYPTED
+                    </div>
+</div>
+</div>
+</div>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Side: PDF Viewer (70%) -->
+<div class="lg:col-span-8 flex flex-col bg-white dark:bg-background-dark border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm h-[800px]">
+<!-- PDF Viewer Toolbar -->
+<div class="bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-4 py-2 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1 text-gray-500 dark:text-gray-400">
+<button class="p-1 hover:bg-gray-200 dark:hover:bg-gray-800 rounded transition-colors"><span class="material-symbols-outlined">zoom_out</span></button>
+<span class="text-xs font-bold px-2">100%</span>
+<button class="p-1 hover:bg-gray-200 dark:hover:bg-gray-800 rounded transition-colors"><span class="material-symbols-outlined">zoom_in</span></button>
+</div>
+<div class="h-4 w-px bg-gray-300 dark:bg-gray-700"></div>
+<div class="flex items-center gap-1 text-gray-500 dark:text-gray-400">
+<button class="p-1 hover:bg-gray-200 dark:hover:bg-gray-800 rounded transition-colors"><span class="material-symbols-outlined">arrow_upward</span></button>
+<span class="text-xs font-bold px-2">Page 1 of 4</span>
+<button class="p-1 hover:bg-gray-200 dark:hover:bg-gray-800 rounded transition-colors"><span class="material-symbols-outlined">arrow_downward</span></button>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-2 px-3 py-1.5 text-xs font-bold text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 rounded transition-colors">
+<span class="material-symbols-outlined text-sm">print</span>
+                            Print
+                        </button>
+</div>
+</div>
+<!-- PDF Canvas Area -->
+<div class="flex-1 bg-gray-100 dark:bg-gray-950 p-8 overflow-y-auto custom-scrollbar flex flex-col items-center gap-8">
+<!-- PDF Page Representation -->
+<div class="w-full max-w-[650px] bg-white shadow-xl min-h-[842px] p-16 flex flex-col gap-6 text-[#111418]">
+<div class="text-center border-b pb-8">
+<h2 class="text-xl font-bold uppercase tracking-widest mb-2">Residential Lease Agreement</h2>
+<p class="text-xs text-gray-500 italic">This is a legally binding document generated on Oct 24, 2023</p>
+</div>
+<div class="space-y-6 text-sm leading-relaxed">
+<p><strong>1. PARTIES:</strong> This Residential Lease Agreement ("Agreement") is made between <strong>Alex Rivera</strong> ("Landlord") and <strong>Jordan Smith</strong> ("Tenant").</p>
+<p><strong>2. PROPERTY:</strong> Landlord hereby leases to Tenant the real property located at <span class="bg-primary/10 px-1 rounded font-semibold text-primary">1242 Maplewood Avenue, Unit 4B, Seattle, WA 98101</span> together with the following personal property: Refrigerator, Stove, Dishwasher, Washer/Dryer.</p>
+<p><strong>3. TERM:</strong> The term of this lease shall be for a period of <span class="bg-primary/10 px-1 rounded font-semibold text-primary">12 months</span>, commencing on <span class="bg-primary/10 px-1 rounded font-semibold text-primary">November 1, 2023</span> and ending on October 31, 2024.</p>
+<p><strong>4. RENT:</strong> Tenant shall pay to Landlord the sum of <span class="bg-primary/10 px-1 rounded font-semibold text-primary">$2,450.00</span> per month, payable in advance on the first day of each calendar month.</p>
+<p><strong>5. SECURITY DEPOSIT:</strong> Upon execution of this Agreement, Tenant shall deposit with Landlord the sum of <span class="bg-primary/10 px-1 rounded font-semibold text-primary">$2,450.00</span> as security for any damage caused to the Premises during the term hereof.</p>
+<div class="pt-8 space-y-4">
+<p class="font-bold border-b border-gray-200 pb-2 uppercase text-xs tracking-tighter">Legal Clauses &amp; Disclosures</p>
+<div class="grid grid-cols-2 gap-4">
+<div class="h-2 bg-gray-100 rounded"></div>
+<div class="h-2 bg-gray-100 rounded"></div>
+<div class="h-2 bg-gray-100 rounded w-2/3"></div>
+<div class="h-2 bg-gray-100 rounded w-1/2"></div>
+<div class="h-2 bg-gray-100 rounded"></div>
+<div class="h-2 bg-gray-100 rounded w-3/4"></div>
+</div>
+</div>
+</div>
+<!-- Footer indicator -->
+<div class="mt-auto pt-10 text-[10px] text-gray-400 flex justify-between uppercase">
+<span>Lease ID: #7821-2023-SEA</span>
+<span>Page 1 of 4</span>
+</div>
+</div>
+<!-- Placeholder for Page 2 -->
+<div class="w-full max-w-[650px] bg-white/60 dark:bg-white/5 border-2 border-dashed border-gray-300 dark:border-gray-700 h-[200px] flex items-center justify-center rounded-lg">
+<p class="text-sm font-medium text-gray-400">Scroll to see more pages</p>
+</div>
+</div>
+</div>
+<!-- Right Side: Sidebar Controls (30%) -->
+<div class="lg:col-span-4 flex flex-col gap-6 sticky top-24">
+<!-- Action Card -->
+<div class="bg-white dark:bg-background-dark border border-gray-200 dark:border-gray-800 rounded-xl p-6 shadow-sm flex flex-col gap-6">
+<div class="flex flex-col gap-2">
+<h3 class="text-lg font-bold text-[#111418] dark:text-white">Final Steps</h3>
+<p class="text-sm text-gray-500 dark:text-gray-400">Please review all data points before signing. Once signed, the document becomes legally binding.</p>
+</div>
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all shadow-md active:scale-[0.98]">
+<span class="material-symbols-outlined">draw</span>
+                        Proceed to Sign
+                    </button>
+<div class="grid grid-cols-2 gap-3">
+<button class="flex items-center justify-center gap-2 px-4 py-2.5 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 text-[#111418] dark:text-white text-sm font-bold rounded-lg transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
+                            PDF
+                        </button>
+<button class="flex items-center justify-center gap-2 px-4 py-2.5 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 text-[#111418] dark:text-white text-sm font-bold rounded-lg transition-colors">
+<span class="material-symbols-outlined text-sm">edit</span>
+                            Edit
+                        </button>
+</div>
+</div>
+<!-- Contract Summary Table -->
+<div class="bg-white dark:bg-background-dark border border-gray-200 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm">
+<div class="px-5 py-4 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between bg-gray-50 dark:bg-gray-900/50">
+<h3 class="text-sm font-bold text-[#111418] dark:text-white uppercase tracking-wider">Summary of Terms</h3>
+<span class="material-symbols-outlined text-primary text-xl">info</span>
+</div>
+<div class="divide-y divide-gray-100 dark:divide-gray-800">
+<div class="px-5 py-3 flex justify-between items-center text-sm">
+<span class="text-gray-500 dark:text-gray-400">Tenant</span>
+<span class="font-semibold text-[#111418] dark:text-white">Jordan Smith</span>
+</div>
+<div class="px-5 py-3 flex justify-between items-center text-sm">
+<span class="text-gray-500 dark:text-gray-400">Monthly Rent</span>
+<span class="font-semibold text-[#111418] dark:text-white">$2,450.00</span>
+</div>
+<div class="px-5 py-3 flex justify-between items-center text-sm">
+<span class="text-gray-500 dark:text-gray-400">Lease Term</span>
+<span class="font-semibold text-[#111418] dark:text-white">12 Months</span>
+</div>
+<div class="px-5 py-3 flex justify-between items-center text-sm">
+<span class="text-gray-500 dark:text-gray-400">Move-in Date</span>
+<span class="font-semibold text-[#111418] dark:text-white">Nov 1, 2023</span>
+</div>
+<div class="px-5 py-3 flex justify-between items-center text-sm">
+<span class="text-gray-500 dark:text-gray-400">Pet Addendum</span>
+<span class="px-2 py-0.5 rounded-full bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-xs font-bold uppercase">No</span>
+</div>
+</div>
+</div>
+<!-- Trust Message -->
+<div class="bg-primary/5 border border-primary/20 rounded-xl p-4 flex gap-4">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<div class="flex flex-col gap-1">
+<p class="text-xs font-bold text-primary uppercase">Legal Guarantee</p>
+<p class="text-xs text-primary/80 leading-relaxed">This contract complies with Washington state residential landlord-tenant law (RCW 59.18).</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Simple Footer -->
+<footer class="bg-white dark:bg-background-dark border-t border-gray-200 dark:border-gray-800 mt-12 py-6 px-10">
+<div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-xs text-gray-400">© 2023 Legal-Safe Engine Inc. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="text-xs text-gray-400 hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-xs text-gray-400 hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="text-xs text-gray-400 hover:text-primary transition-colors" href="#">Help Center</a>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Electronic Signature and Stamp Setup</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pdf-page-shadow {
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111418] dark:text-white transition-colors duration-200">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#dbe0e6] dark:border-b-[#2a343d] bg-white dark:bg-background-dark px-10 py-3 sticky top-0 z-50">
+<div class="flex items-center gap-4 text-[#111418] dark:text-white">
+<div class="size-8 text-primary">
+<span class="material-symbols-outlined text-4xl">contract_edit</span>
+</div>
+<h2 class="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">RentSigner</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-9">
+<a class="text-[#111418] dark:text-white text-sm font-medium leading-normal" href="#">Dashboard</a>
+<a class="text-[#111418] dark:text-white text-sm font-medium leading-normal" href="#">Contracts</a>
+<a class="text-[#111418] dark:text-white text-sm font-medium leading-normal" href="#">Templates</a>
+</div>
+<button class="flex min-w-[140px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+<span class="truncate">Finalize and Sign</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-gray-200" data-alt="User avatar placeholder" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDrpkIe6qxWIoedGpXDDUMrg0jdseZMG__pbPjQCQj_QIyjdr3EZtsJwD2-9mGgmm3aPYMDKHpY3wNceOzyhda-Gec_TdICr6qPExPrHzE40-fXzWGyTuOot0m-Ha4AGStMYb9Y4pSW7vexDo9PUcjNdblBqk9HRW4ucfbvxur630J4DULT272wniDuM78rdvBPpEDezqOeXynO03r9ASoR-oOkCZfV41ahHivLVRR8FwyJ-ORZyIq7WLpHjFGmajDFCjldMIapRKc");'></div>
+</div>
+</header>
+<main class="flex flex-1 flex-col">
+<!-- Breadcrumbs -->
+<div class="px-10 lg:px-40 py-2">
+<div class="flex flex-wrap gap-2 py-2">
+<a class="text-[#617589] text-sm font-medium leading-normal hover:text-primary" href="#">Drafts</a>
+<span class="text-[#617589] text-sm font-medium leading-normal">/</span>
+<a class="text-[#617589] text-sm font-medium leading-normal hover:text-primary" href="#">Contract #4402 - Residential Lease</a>
+<span class="text-[#617589] text-sm font-medium leading-normal">/</span>
+<span class="text-[#111418] dark:text-white text-sm font-medium leading-normal">Signature Setup</span>
+</div>
+</div>
+<!-- Page Heading -->
+<div class="px-10 lg:px-40 pb-4">
+<div class="flex flex-wrap justify-between items-end gap-3">
+<div class="flex min-w-72 flex-col gap-1">
+<h1 class="text-[#111418] dark:text-white tracking-tight text-3xl font-bold leading-tight">Contract Signature &amp; Stamp Setup</h1>
+<p class="text-[#617589] text-sm font-normal leading-normal">Drag and drop your signature into the highlighted areas on the PDF.</p>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg border border-[#dbe0e6] dark:border-[#2a343d] text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800">
+<span class="material-symbols-outlined text-sm">zoom_in</span> Zoom
+                        </button>
+<button class="flex items-center gap-2 px-3 py-2 rounded-lg border border-[#dbe0e6] dark:border-[#2a343d] text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800">
+<span class="material-symbols-outlined text-sm">download</span> Download Draft
+                        </button>
+</div>
+</div>
+</div>
+<!-- Tabs -->
+<div class="px-10 lg:px-40">
+<div class="flex border-b border-[#dbe0e6] dark:border-[#2a343d] gap-8">
+<a class="flex flex-col items-center justify-center border-b-[3px] border-primary text-[#111418] dark:text-white pb-[13px] pt-4" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Contract View</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-transparent text-[#617589] pb-[13px] pt-4 hover:text-primary" href="#">
+<p class="text-sm font-bold leading-normal tracking-[0.015em]">Signature Assets</p>
+</a>
+</div>
+</div>
+<!-- Workspace: Sidebar + PDF Viewer -->
+<div class="flex flex-1 px-10 lg:px-40 py-6 gap-6 h-full overflow-hidden">
+<!-- Left Sidebar: Tools & Assets -->
+<aside class="w-80 flex-shrink-0 flex flex-col gap-6">
+<div class="bg-white dark:bg-background-dark border border-[#dbe0e6] dark:border-[#2a343d] rounded-xl flex flex-col h-full p-5">
+<div class="flex flex-col mb-6">
+<h3 class="text-[#111418] dark:text-white text-base font-bold">Signature Tools</h3>
+<p class="text-[#617589] text-xs font-normal">Create or select your stamp</p>
+</div>
+<!-- Tool Options -->
+<div class="flex flex-col gap-3 mb-8">
+<button class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary/10 border border-primary/20 text-primary group transition-all">
+<span class="material-symbols-outlined fill-1">edit</span>
+<p class="text-sm font-semibold">Draw Signature</p>
+</button>
+<button class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 border border-transparent transition-all">
+<span class="material-symbols-outlined">upload</span>
+<p class="text-[#111418] dark:text-white text-sm font-medium">Upload Stamp</p>
+</button>
+<button class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 border border-transparent transition-all">
+<span class="material-symbols-outlined">keyboard</span>
+<p class="text-[#111418] dark:text-white text-sm font-medium">Text-based Stamp</p>
+</button>
+</div>
+<div class="h-px bg-[#dbe0e6] dark:bg-[#2a343d] mb-6"></div>
+<!-- Saved Assets List -->
+<div class="flex flex-col gap-4 flex-1 overflow-y-auto">
+<h4 class="text-xs font-bold text-[#617589] uppercase tracking-wider">My Saved Assets</h4>
+<!-- Asset Card 1 -->
+<div class="group relative cursor-grab active:cursor-grabbing border border-dashed border-[#dbe0e6] dark:border-[#2a343d] rounded-lg p-2 bg-white dark:bg-gray-900 hover:border-primary transition-colors">
+<div class="h-16 flex items-center justify-center overflow-hidden bg-gray-50 dark:bg-gray-800 rounded">
+<img class="h-10 object-contain" data-alt="Cursive digital signature of John Doe" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBde_uzoErqW62rVUDxGwb8TcgUGCh4RwUqHGBSfVYrPdIrNQraaQbM-a9R8CjXOvY2PHibp7NoCX96B4AT2_HXaf7sZI5KrKg0JJlOzfQ0S7wwE8hWzz-o3sZq4rFu2-DFy0qZPMeNGmzJpKHyMu2AD7s0ieZWe9tqR09Kf8Rl7pnw8Agy6RRMO3LzEiZ4paPnEpiQ0g4IfERA-hCKqTAEhRZQhgEBW025LeZRqFlJIfCdv-kAVoKs-4soF_5k3aMGhIZOQ4QDPlw"/>
+</div>
+<div class="mt-2 flex justify-between items-center">
+<span class="text-[10px] font-medium text-[#617589]">Primary Signature</span>
+<span class="material-symbols-outlined text-xs text-[#617589]">drag_indicator</span>
+</div>
+</div>
+<!-- Asset Card 2 -->
+<div class="group relative cursor-grab active:cursor-grabbing border border-dashed border-[#dbe0e6] dark:border-[#2a343d] rounded-lg p-2 bg-white dark:bg-gray-900 hover:border-primary transition-colors">
+<div class="h-16 flex items-center justify-center overflow-hidden bg-gray-50 dark:bg-gray-800 rounded">
+<img class="h-12 object-contain" data-alt="Official circular red rental company stamp" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAe-zC_I4z7YDmXE7w4-ukbHobevQ-Du9R-z5hHhohZmdSKBbt2H2jzAFfUDXaYqNFGIjaXIpl91QU0E3UpoTEKUKNpi68mW00H57R6X8VeodUGzLC4y73vFqxVA1Z-nC-Wqin-1-RUhipBMPYseyTsEak19kTqLFTut1fIpU3aK7bAG0KqUf6yDbuj3hzAGQAimtzLaG9zj6JR_l3i0G5HvQh_0L2M54stnqOxqAkRXCmyj2nzFGzhr6anXAY38vurlOkqAMuQJuk"/>
+</div>
+<div class="mt-2 flex justify-between items-center">
+<span class="text-[10px] font-medium text-[#617589]">Company Stamp</span>
+<span class="material-symbols-outlined text-xs text-[#617589]">drag_indicator</span>
+</div>
+</div>
+</div>
+<button class="mt-6 flex w-full cursor-pointer items-center justify-center rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold hover:bg-primary/90 transition-colors">
+<span>Add New Asset</span>
+</button>
+</div>
+</aside>
+<!-- PDF Document Viewer Area -->
+<section class="flex-1 flex flex-col bg-gray-200 dark:bg-[#1c2630] rounded-xl overflow-hidden border border-[#dbe0e6] dark:border-[#2a343d]">
+<!-- Viewer Toolbar -->
+<div class="bg-white dark:bg-background-dark border-b border-[#dbe0e6] dark:border-[#2a343d] px-4 py-2 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<span class="text-xs font-medium text-[#617589]">Page 1 of 8</span>
+<div class="flex items-center bg-gray-100 dark:bg-gray-800 rounded-md p-1">
+<button class="p-1 hover:bg-white dark:hover:bg-gray-700 rounded"><span class="material-symbols-outlined text-sm">keyboard_arrow_up</span></button>
+<button class="p-1 hover:bg-white dark:hover:bg-gray-700 rounded"><span class="material-symbols-outlined text-sm">keyboard_arrow_down</span></button>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-400">search</span>
+<input class="text-xs border-none bg-transparent focus:ring-0 w-24" placeholder="Find..." type="text"/>
+</div>
+</div>
+<!-- PDF Content Canvas -->
+<div class="flex-1 overflow-y-auto p-12 flex flex-col items-center gap-8 bg-gray-200 dark:bg-[#1c2630]">
+<!-- Page 1 Representation -->
+<div class="bg-white w-full max-w-[800px] aspect-[1/1.4] pdf-page-shadow relative p-16 flex flex-col gap-6 text-[#111418]">
+<h2 class="text-center font-bold text-xl uppercase tracking-widest mb-4">Residential Lease Agreement</h2>
+<div class="space-y-4 text-sm leading-relaxed">
+<p>This Residential Lease Agreement ("Agreement") is made and entered into this 15th day of October, 2023, by and between <strong>Elite Property Management</strong> ("Landlord") and <strong>Sarah Jenkins</strong> ("Tenant").</p>
+<p><strong>1. PREMISES:</strong> Landlord hereby leases to Tenant and Tenant hereby leases from Landlord the real property and improvements located at: 123 Maple Street, Apt 4B, Springfield, IL 62704.</p>
+<p><strong>2. TERM:</strong> The term of this lease shall be for a fixed period of 12 months, commencing on November 1, 2023, and expiring on October 31, 2024.</p>
+<p><strong>3. RENT:</strong> Tenant shall pay to Landlord a monthly rent of $1,850.00, payable in advance on the first day of each month.</p>
+<div class="pt-12 mt-12 border-t border-gray-100 flex flex-col gap-8">
+<div class="flex justify-between gap-12">
+<!-- Drop Zone: Landlord -->
+<div class="flex-1">
+<p class="text-[10px] font-bold text-[#617589] mb-2 uppercase">Landlord Signature</p>
+<div class="group relative h-20 border-2 border-dashed border-primary/40 bg-primary/5 rounded-lg flex items-center justify-center transition-all hover:bg-primary/10 hover:border-primary">
+<span class="text-xs font-semibold text-primary/60 group-hover:text-primary transition-colors flex flex-col items-center">
+<span class="material-symbols-outlined">add_circle</span>
+                                                    Drop Landlord Signature Here
+                                                </span>
+</div>
+<p class="mt-2 text-xs font-medium border-t pt-1 border-gray-900">Elite Property Management</p>
+</div>
+<!-- Drop Zone: Tenant -->
+<div class="flex-1">
+<p class="text-[10px] font-bold text-[#617589] mb-2 uppercase">Tenant Signature</p>
+<div class="group relative h-20 border-2 border-dashed border-primary/40 bg-primary/5 rounded-lg flex items-center justify-center transition-all hover:bg-primary/10 hover:border-primary">
+<span class="text-xs font-semibold text-primary/60 group-hover:text-primary transition-colors flex flex-col items-center">
+<span class="material-symbols-outlined">add_circle</span>
+                                                    Drop Tenant Signature Here
+                                                </span>
+</div>
+<p class="mt-2 text-xs font-medium border-t pt-1 border-gray-900">Sarah Jenkins</p>
+</div>
+</div>
+<!-- Stamp Area -->
+<div class="w-1/3">
+<p class="text-[10px] font-bold text-[#617589] mb-2 uppercase">Official Stamp</p>
+<div class="group relative h-24 border-2 border-dashed border-gray-300 bg-gray-50 rounded-lg flex items-center justify-center transition-all hover:border-primary hover:bg-primary/5">
+<span class="text-xs font-semibold text-gray-400 group-hover:text-primary flex flex-col items-center">
+<span class="material-symbols-outlined">approval</span>
+                                                Place Stamp
+                                            </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Mini indicator for Page 2 -->
+<div class="bg-white w-full max-w-[800px] h-20 pdf-page-shadow opacity-50 flex items-center justify-center italic text-gray-400">
+                            Page 2 continued...
+                        </div>
+</div>
+</section>
+</div>
+</main>
+<!-- Fixed Finalize Footer -->
+<footer class="sticky bottom-0 bg-white dark:bg-background-dark border-t border-[#dbe0e6] dark:border-[#2a343d] px-10 lg:px-40 py-4 flex items-center justify-between z-40">
+<div class="flex items-center gap-6">
+<div class="flex flex-col">
+<span class="text-xs font-bold text-gray-500 uppercase">Status</span>
+<span class="text-sm font-semibold flex items-center gap-1">
+<span class="size-2 bg-yellow-400 rounded-full"></span>
+                        Awaiting 3 Placements
+                    </span>
+</div>
+<div class="h-8 w-px bg-gray-200 dark:bg-gray-700"></div>
+<p class="text-xs text-gray-500 max-w-md">By clicking finalize, you agree to the Terms of Service and legal binding of the electronic signatures applied.</p>
+</div>
+<div class="flex gap-4">
+<button class="px-6 h-12 rounded-lg border border-[#dbe0e6] dark:border-[#2a343d] font-bold text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">Save Draft</button>
+<button class="px-8 h-12 rounded-lg bg-primary text-white font-bold text-sm shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all transform hover:-translate-y-0.5">Finalize and Sign</button>
+</div>
+</footer>
+</div>
+</div>
+</body></html>
