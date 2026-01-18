@@ -6,12 +6,21 @@ import dynamic from 'next/dynamic';
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import SignatureCanvas from 'react-signature-canvas';
 
-const Document = dynamic(() => import('react-pdf').then(mod => {
-    mod.pdfjs.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.mjs';
-    return mod.Document;
-}), { ssr: false });
+const Document = dynamic(
+    () => import('react-pdf').then(mod => {
+        const pdfjs = mod.pdfjs;
+        if (typeof window !== 'undefined') {
+            pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.js`;
+        }
+        return mod.Document;
+    }),
+    { ssr: false, loading: () => <p>Loading PDF viewer...</p> }
+);
 
-const Page = dynamic(() => import('react-pdf').then(mod => mod.Page), { ssr: false });
+const Page = dynamic(
+    () => import('react-pdf').then(mod => mod.Page),
+    { ssr: false }
+);
 
 export default function Process2() {
     const router = useRouter();
@@ -66,10 +75,15 @@ export default function Process2() {
     useEffect(() => {
         if (rentalData) {
             const fillPdf = async () => {
-                const url = '/edoc/rentalRoomAgreement.pdf';
-                const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
+                try {
+                    const url = '/edoc/rentalRoomAgreement.pdf';
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch PDF: ${response.status}`);
+                    }
+                    const existingPdfBytes = await response.arrayBuffer();
 
-                const pdfDoc = await PDFDocument.load(existingPdfBytes);
+                    const pdfDoc = await PDFDocument.load(existingPdfBytes);
                 const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica);
 
                 const pages = pdfDoc.getPages();
@@ -131,10 +145,13 @@ export default function Process2() {
                     yPos -= lineHeight;
                 }
 
-                const modifiedPdfBytes = await pdfDoc.save();
-                const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
-                const pdfBlobUrl = URL.createObjectURL(blob);
-                setPdfUrl(pdfBlobUrl);
+                    const modifiedPdfBytes = await pdfDoc.save();
+                    const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
+                    const pdfBlobUrl = URL.createObjectURL(blob);
+                    setPdfUrl(pdfBlobUrl);
+                } catch (error) {
+                    console.error('Error loading/processing PDF:', error);
+                }
             };
 
             fillPdf();
@@ -164,6 +181,10 @@ export default function Process2() {
     }
 
     const handleSaveLandlord = () => {
+        if (landlordSigCanvas.current.isEmpty()) {
+            alert('Please draw a signature first.');
+            return;
+        }
         setLandlordSignature(landlordSigCanvas.current.toDataURL());
     }
 
@@ -173,16 +194,26 @@ export default function Process2() {
     }
 
     const handleSaveTenant = () => {
+        if (tenantSigCanvas.current.isEmpty()) {
+            alert('Please draw a signature first.');
+            return;
+        }
         setTenantSignature(tenantSigCanvas.current.toDataURL());
     }
 
     const handleFinalize = () => {
+        console.log('landlordSignature:', !!landlordSignature);
+        console.log('tenantSignature:', !!tenantSignature);
+
         if (landlordSignature && tenantSignature) {
             localStorage.setItem('landlordSignature', landlordSignature);
             localStorage.setItem('tenantSignature', tenantSignature);
             router.push('/process3');
         } else {
-            alert('Please provide both Landlord and Tenant signatures.');
+            const missing = [];
+            if (!landlordSignature) missing.push('Landlord');
+            if (!tenantSignature) missing.push('Tenant');
+            alert(`Please save ${missing.join(' and ')} signature(s) first.`);
         }
     };
 
@@ -195,7 +226,7 @@ export default function Process2() {
                 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
                 <script dangerouslySetInnerHTML={{ __html: `
                     tailwind.config = {
-                        darkMode: "class",
+                        darkMode: false,
                         theme: {
                             extend: {
                                 colors: {
@@ -220,22 +251,22 @@ export default function Process2() {
                     }
                 `}} />
             </Head>
-            <body className="bg-background-light dark:bg-background-dark font-display text-[#111418] dark:text-white transition-colors duration-200">
+            <body className="bg-background-light font-display text-[#111418] transition-colors duration-200">
                 <div className="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
                     <div className="layout-container flex h-full grow flex-col">
                         {/* Top Navigation */}
-                        <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#dbe0e6] dark:border-b-[#2a343d] bg-white dark:bg-background-dark px-10 py-3 sticky top-0 z-50">
-                            <div className="flex items-center gap-4 text-[#111418] dark:text-white">
+                        <header className="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#dbe0e6] bg-white px-10 py-3 sticky top-0 z-50">
+                            <div className="flex items-center gap-4 text-[#111418]">
                                 <div className="size-8 text-primary">
                                     <span className="material-symbols-outlined text-4xl">contract_edit</span>
                                 </div>
-                                <h2 className="text-[#111418] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">RentSigner</h2>
+                                <h2 className="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em]">RentSigner</h2>
                             </div>
                             <div className="flex flex-1 justify-end gap-8">
                                 <div className="flex items-center gap-9">
-                                    <a className="text-[#111418] dark:text-white text-sm font-medium leading-normal" href="#">Dashboard</a>
-                                    <a className="text-[#111418] dark:text-white text-sm font-medium leading-normal" href="#">Contracts</a>
-                                    <a className="text-[#111418] dark:text-white text-sm font-medium leading-normal" href="#">Templates</a>
+                                    <a className="text-[#111418] text-sm font-medium leading-normal" href="#">Dashboard</a>
+                                    <a className="text-[#111418] text-sm font-medium leading-normal" href="#">Contracts</a>
+                                    <a className="text-[#111418] text-sm font-medium leading-normal" href="#">Templates</a>
                                 </div>
                                 <button onClick={handleFinalize} className="flex min-w-[140px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
                                     <span className="truncate">Finalize and Sign</span>
@@ -251,18 +282,18 @@ export default function Process2() {
                                     <span className="text-[#617589] text-sm font-medium leading-normal">/</span>
                                     <a className="text-[#617589] text-sm font-medium leading-normal hover:text-primary" href="#">Contract #4402 - Residential Lease</a>
                                     <span className="text-[#617589] text-sm font-medium leading-normal">/</span>
-                                    <span className="text-[#111418] dark:text-white text-sm font-medium leading-normal">Signature Setup</span>
+                                    <span className="text-[#111418] text-sm font-medium leading-normal">Signature Setup</span>
                                 </div>
                             </div>
                             {/* Page Heading */}
                             <div className="px-10 lg:px-40 pb-4">
                                 <div className="flex flex-wrap justify-between items-end gap-3">
                                     <div className="flex min-w-72 flex-col gap-1">
-                                        <h1 className="text-[#111418] dark:text-white tracking-tight text-3xl font-bold leading-tight">Contract Signature &amp; Stamp Setup</h1>
+                                        <h1 className="text-[#111418] tracking-tight text-3xl font-bold leading-tight">Contract Signature &amp; Stamp Setup</h1>
                                         <p className="text-[#617589] text-sm font-normal leading-normal">Draw your signature in the box below.</p>
                                     </div>
                                     <div className="flex gap-2">
-                                        <button onClick={handleDownload} className="flex items-center gap-2 px-3 py-2 rounded-lg border border-[#dbe0e6] dark:border-[#2a343d] text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800">
+                                        <button onClick={handleDownload} className="flex items-center gap-2 px-3 py-2 rounded-lg border border-[#dbe0e6] text-sm font-medium hover:bg-gray-50">
                                             <span className="material-symbols-outlined text-sm">download</span> Download Draft
                                         </button>
                                     </div>
@@ -273,9 +304,9 @@ export default function Process2() {
                                 {/* Left Sidebar: Tools & Assets */}
                                 <aside className="w-80 flex-shrink-0 flex flex-col gap-6 overflow-y-auto">
                                     {/* Landlord Signature */}
-                                    <div className="bg-white dark:bg-background-dark border border-[#dbe0e6] dark:border-[#2a343d] rounded-xl flex flex-col p-5">
+                                    <div className="bg-white border border-[#dbe0e6] rounded-xl flex flex-col p-5">
                                         <div className="flex flex-col mb-4">
-                                            <h3 className="text-[#111418] dark:text-white text-base font-bold">Landlord Signature</h3>
+                                            <h3 className="text-[#111418] text-base font-bold">Landlord Signature</h3>
                                             <p className="text-[#617589] text-xs font-normal">Draw landlord signature below</p>
                                         </div>
                                         <div className="relative h-32 w-full border rounded-lg bg-white">
@@ -286,7 +317,7 @@ export default function Process2() {
                                             />
                                         </div>
                                         <div className="flex gap-2 mt-3">
-                                            <button onClick={handleClearLandlord} className="flex-1 px-3 py-1.5 rounded-lg border border-[#dbe0e6] dark:border-[#2a343d] text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800">Clear</button>
+                                            <button onClick={handleClearLandlord} className="flex-1 px-3 py-1.5 rounded-lg border border-[#dbe0e6] text-sm font-medium hover:bg-gray-50">Clear</button>
                                             <button onClick={handleSaveLandlord} className="flex-1 px-3 py-1.5 rounded-lg bg-primary text-white text-sm font-bold hover:bg-primary/90">Save</button>
                                         </div>
                                         {landlordSignature && (
@@ -300,9 +331,9 @@ export default function Process2() {
                                     </div>
 
                                     {/* Tenant Signature */}
-                                    <div className="bg-white dark:bg-background-dark border border-[#dbe0e6] dark:border-[#2a343d] rounded-xl flex flex-col p-5">
+                                    <div className="bg-white border border-[#dbe0e6] rounded-xl flex flex-col p-5">
                                         <div className="flex flex-col mb-4">
-                                            <h3 className="text-[#111418] dark:text-white text-base font-bold">Tenant Signature</h3>
+                                            <h3 className="text-[#111418] text-base font-bold">Tenant Signature</h3>
                                             <p className="text-[#617589] text-xs font-normal">Draw tenant signature below</p>
                                         </div>
                                         <div className="relative h-32 w-full border rounded-lg bg-white">
@@ -313,7 +344,7 @@ export default function Process2() {
                                             />
                                         </div>
                                         <div className="flex gap-2 mt-3">
-                                            <button onClick={handleClearTenant} className="flex-1 px-3 py-1.5 rounded-lg border border-[#dbe0e6] dark:border-[#2a343d] text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800">Clear</button>
+                                            <button onClick={handleClearTenant} className="flex-1 px-3 py-1.5 rounded-lg border border-[#dbe0e6] text-sm font-medium hover:bg-gray-50">Clear</button>
                                             <button onClick={handleSaveTenant} className="flex-1 px-3 py-1.5 rounded-lg bg-primary text-white text-sm font-bold hover:bg-primary/90">Save</button>
                                         </div>
                                         {tenantSignature && (
@@ -327,13 +358,17 @@ export default function Process2() {
                                     </div>
                                 </aside>
                                 {/* PDF Document Viewer Area */}
-                                <section className="flex-1 flex flex-col bg-gray-200 dark:bg-[#1c2630] rounded-xl overflow-hidden border border-[#dbe0e6] dark:border-[#2a343d]">
-                                    <div className="flex-1 overflow-y-auto p-12 flex flex-col items-center gap-8 bg-gray-200 dark:bg-[#1c2630]">
+                                <section className="flex-1 flex flex-col bg-gray-200 rounded-xl overflow-hidden border border-[#dbe0e6]">
+                                    <div className="flex-1 overflow-y-auto p-12 flex flex-col items-center gap-8 bg-gray-200">
                                         {pdfUrl && (
                                             <Document
                                                 file={pdfUrl}
                                                 onLoadSuccess={onDocumentLoadSuccess}
-                                                onLoadError={console.error}
+                                                onLoadError={(error) => console.error('PDF Load Error:', error)}
+                                                options={{
+                                                    cMapUrl: `//unpkg.com/pdfjs-dist@3.11.174/cmaps/`,
+                                                    cMapPacked: true,
+                                                }}
                                             >
                                                 {Array.from(new Array(numPages), (el, index) => (
                                                     <Page 
@@ -350,12 +385,12 @@ export default function Process2() {
                             </div>
                         </main>
                         {/* Fixed Finalize Footer */}
-                        <footer className="sticky bottom-0 bg-white dark:bg-background-dark border-t border-[#dbe0e6] dark:border-[#2a343d] px-10 lg:px-40 py-4 flex items-center justify-between z-40">
+                        <footer className="sticky bottom-0 bg-white border-t border-[#dbe0e6] px-10 lg:px-40 py-4 flex items-center justify-between z-40">
                             <div className="flex items-center gap-6">
                                 <p className="text-xs text-gray-500 max-w-md">By clicking finalize, you agree to the Terms of Service and legal binding of the electronic signatures applied.</p>
                             </div>
                             <div className="flex gap-4">
-                                <button className="px-6 h-12 rounded-lg border border-[#dbe0e6] dark:border-[#2a343d] font-bold text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">Save Draft</button>
+                                <button className="px-6 h-12 rounded-lg border border-[#dbe0e6] font-bold text-sm hover:bg-gray-50 transition-colors">Save Draft</button>
                                 <button onClick={handleFinalize} className="px-8 h-12 rounded-lg bg-primary text-white font-bold text-sm shadow-lg shadow-primary/20 hover:bg-primary/90 transition-all transform hover:-translate-y-0.5">Finalize and Sign</button>
                             </div>
                         </footer>
