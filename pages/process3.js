@@ -9,7 +9,7 @@ const Document = dynamic(
     () => import('react-pdf').then(mod => {
         const pdfjs = mod.pdfjs;
         if (typeof window !== 'undefined') {
-            pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/legacy/build/pdf.worker.min.js`;
+            pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
         }
         return mod.Document;
     }),
@@ -265,7 +265,7 @@ export default function Process3() {
                                         onLoadSuccess={onDocumentLoadSuccess}
                                         onLoadError={(error) => console.error('PDF Load Error:', error)}
                                         options={{
-                                            cMapUrl: `//unpkg.com/pdfjs-dist@3.11.174/cmaps/`,
+                                            cMapUrl: `//unpkg.com/pdfjs-dist@4.8.69/cmaps/`,
                                             cMapPacked: true,
                                         }}
                                     >
